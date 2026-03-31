@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.nasdanika</groupId>
+    <version>2.42.0</version>
+    <artifactId>xtext</artifactId>
+    <packaging>jar</packaging>
+    <name>Shaded wrapper of Xtext, Xtext Util and Xtext Ecore for JPMS</name>
+
+    <licenses>
+        <license>
+            <name>Eclipse Public License 2.0</name>
+            <url>
+                https://nasdanika.org/builds/master/eclipse-public-license-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/Nasdanika/xtext</url>
+    </scm>
+
+    <properties>
+        <jacoco.version>0.8.14</jacoco.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+        <linksource>true</linksource>
+    </properties>
+
+    <build>
+        <plugins>
+	<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.5.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Automatic-Module-Name>org.nasdanika.xtext</Automatic-Module-Name>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.14.1</version>
+				<configuration>
+					<release>21</release>
+				</configuration>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.eclipse.xtext:org.eclipse.xtext</include>
+                                    <include>org.eclipse.xtext:org.eclipse.xtext.util</include>
+                                    <include>org.eclipse.xtext:org.eclipse.xtext.ecore</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>jpms-ready</shadedClassifierName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.xtext</groupId>
+            <artifactId>org.eclipse.xtext</artifactId>
+            <version>2.42.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.xtext</groupId>
+            <artifactId>org.eclipse.xtext.ecore</artifactId>
+            <version>2.42.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.xtext</groupId>
+            <artifactId>org.eclipse.xtext.util</artifactId>
+            <version>2.42.0</version>
+        </dependency>
+    </dependencies>
+
+    <organization>
+        <name>Nasdanika</name>
+        <url>https://github.com/Nasdanika</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>pvlasov</id>
+            <name>Pavel Vlasov</name>
+            <email>Pavel.Vlasov@nasdanika.org</email>
+            <roles>
+                <role>Lead Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+</project>
