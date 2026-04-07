@@ -7,6 +7,8 @@
     <artifactId>xtext</artifactId>
     <packaging>jar</packaging>
     <name>Shaded wrapper of Xtext, Xtext Util and Xtext Ecore for JPMS</name>
+    <description>Eclipse Xtext and Xtext Util have a split package which breaks the Java Module System. This jar addresses it by shading them together</description>
+    <url>https://github.com/Nasdanika/xtext</url>
 
     <licenses>
         <license>
@@ -41,6 +43,19 @@
                     </manifestEntries>
                 </archive>
             </configuration>
+			    <executions>
+			        <execution>
+			            <id>attach-readme-md</id>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>jar</goal>
+			            </goals>
+			            <configuration>
+			                <classifier>javadoc</classifier>
+			                <classesDirectory>${project.basedir}/src/main/javadoc</classesDirectory>
+			            </configuration>
+			        </execution>
+			    </executions>
         </plugin>
 
 			<plugin>
@@ -79,8 +94,8 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>jpms-ready</shadedClassifierName>
+                            <createSourcesJar>true</createSourcesJar>                
+                            <shadeSourcesContent>true</shadeSourcesContent>
                         </configuration>
                     </execution>
                 </executions>
@@ -122,4 +137,38 @@
             <timezone>-5</timezone>
         </developer>
     </developers>
+	 <profiles>
+		<profile>
+			<id>central</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>3.2.8</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>	
+					<plugin>					
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+						<version>0.9.0</version>
+						<extensions>true</extensions>
+						<configuration>
+							<publishingServerId>central</publishingServerId>
+							<autoPublish>true</autoPublish>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
