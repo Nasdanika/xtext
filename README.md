@@ -12,12 +12,12 @@ See the example below:
     <dependency>
         <groupId>org.nasdanika</groupId>
         <artifactId>xtext</artifactId>
-        <version>2.42.0</version>
+        <version>2.43.0</version>
     </dependency>
     <dependency>
         <groupId>org.eclipse.emf</groupId>
         <artifactId>org.eclipse.emf.ecore.xcore</artifactId>
-        <version>1.36.0</version>
+        <version>1.37.0</version>
         <exclusions>
             <exclusion>
                 <groupId>org.eclipse.xtext</groupId>
@@ -37,17 +37,17 @@ See the example below:
     <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api</artifactId>
-        <version>2.25.4</version>
+        <version>2.26.1</version>
     </dependency>
     <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
-        <version>2.25.4</version>
+        <version>2.26.1</version>
     </dependency>
     <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-1.2-api</artifactId>
-        <version>2.25.4</version>
+        <version>2.26.1</version>
     </dependency>
 </dependencies>
 ```
